@@ -1,0 +1,12 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8080
+spring:
+  application:
+    name: kkb-server-demo
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: hn123456Aa
+    url: jdbc:mysql://localhost:3306/wpaper?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+
