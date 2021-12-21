@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wh.kkbserverdemo.mapper.BannerMapper">
+
+    <resultMap id="BannerMap" type="com.wh.kkbserverdemo.entity.Banner">
+        <result property="bannerId" column="banner_id" jdbcType="INTEGER"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="image" column="image" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="createdBy" column="created_by" jdbcType="VARCHAR"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedBy" column="updated_by" jdbcType="VARCHAR"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <insert id="insertBanner" parameterType="com.wh.kkbserverdemo.entity.Banner">
+        insert into hk_banner
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bannerId != null  ">bannerId,</if>
+            <if test="title != null  ">title,</if>
+            <if test="description != null  ">description,</if>
+            <if test="image != null  ">image,</if>
+            <if test="url != null  ">url,</if>
+            <if test="status != null  ">status,</if>
+            <if test="sort != null  ">sort,</if>
+            <if test="createdBy != null ">createdBy,</if>
+            <if test="createdTime != null ">createdTime,</if>
+            <if test="updatedBy != null ">updatedBy,</if>
+            <if test="updatedTime != null ">updatedTime,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bannerId != null  ">#{bannerId},</if>
+            <if test="title != null  ">#{title},</if>
+            <if test="description != null  ">#{description},</if>
+            <if test="image != null  ">#{image},</if>
+            <if test="url != null  ">#{url},</if>
+            <if test="status != null  ">#{status},</if>
+            <if test="sort != null  ">#{sort},</if>
+            <if test="createdBy != null ">#{createdBy},</if>
+            <if test="createdTime != null ">#{createdTime},</if>
+            <if test="updatedBy != null ">#{updatedBy},</if>
+            <if test="updatedTime != null ">#{updatedTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateBanner" parameterType="com.wh.kkbserverdemo.vo.response.BannerResponse">
+        update hk_banner
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="url != null">url = #{url},</if>
+        </set>
+        where banner_id = #{bannerId}
+    </update>
+
+    <delete id="deleteById">
+        delete from hk_banner where banner_id = #{id}
+    </delete>
+
+    <select id="qryList" resultMap="BannerMap">
+        select banner_id, title, description, image, url from hk_banner where status=0
+    </select>
+
+    <select id="qryListByPage" resultMap="BannerMap">
+        select banner_id, title, description, image, url from hk_banner where status=0
+        <if test="title != null">
+            and title like CONCAT('%',#{title},'%')
+        </if>
+        order by sort asc,banner_id desc
+    </select>
+
+    <select id="findById" resultType="com.wh.kkbserverdemo.vo.response.BannerResponse">
+        select banner_id, title, description, image, url from hk_banner where banner_id = #{id}
+    </select>
+
+
+
+</mapper>

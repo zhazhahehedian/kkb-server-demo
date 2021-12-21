@@ -10,3 +10,6 @@ spring:
     password: hn123456Aa
     url: jdbc:mysql://localhost:3306/wpaper?characterEncoding=utf8&serverTimezone=Asia/Shanghai
 
+mybatis:
+  type-aliases-package: com.wh.kkbserverdemo.entity
+  mapper-locations: classpath:mapper/*.xml
